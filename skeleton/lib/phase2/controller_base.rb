@@ -16,9 +16,9 @@ module Phase2
     # Set the response status code and header
     def redirect_to(url)
       raise "Error!" if already_built_response?
+      
       @res.status = 302
       @res["Location"] = url
-
 
       @already_built_response = true
     end
@@ -28,8 +28,10 @@ module Phase2
     # Raise an error if the developer tries to double render.
     def render_content(content, type)
       raise "Error!" if already_built_response?
+
       @res.content_type = type
       @res.body = content
+
       @already_built_response = true
     end
   end
