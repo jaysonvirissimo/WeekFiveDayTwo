@@ -10,6 +10,16 @@ module Phase5
     # You haven't done routing yet; but assume route params will be
     # passed in as a hash to `Params.new` as below:
     def initialize(req, route_params = {})
+      @params = Hash.new.merge!(route_params)
+      
+      unless req.body.nil?
+        parsed_body = parse_www_encoded_form(req.body)
+        @params.merge!(parsed_body)
+      end
+      unless req.query_string.nil?
+        parsed_query_string = parse_www_encoded_form(req.query_string)
+        @params.merge!(parsed_query_string)
+      end
     end
 
     def [](key)
