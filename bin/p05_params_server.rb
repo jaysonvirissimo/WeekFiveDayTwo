@@ -16,7 +16,7 @@ class Cat
 
   def initialize(params = {})
     params ||= {}
-    @name, @owner = params["name"], params["owner"]
+    @name, @owner = params['name'], params['owner']
   end
 
   def save
@@ -33,9 +33,9 @@ end
 
 class CatsController < Phase5::ControllerBase
   def create
-    @cat = Cat.new(params["cat"])
+    @cat = Cat.new(params['cat'])
     if @cat.save
-      redirect_to("/cats")
+      redirect_to('/cats')
     else
       render :new
     end

@@ -8,10 +8,10 @@ require_relative '../lib/phase2/controller_base'
 
 class MyController < Phase2::ControllerBase
   def go
-    if @req.path == "/cats"
-      render_content("hello cats!", "text/html")
+    if @req.path == '/cats'
+      render_content('hello cats!', 'text/html')
     else
-      redirect_to("/cats")
+      redirect_to('/cats')
     end
   end
 end

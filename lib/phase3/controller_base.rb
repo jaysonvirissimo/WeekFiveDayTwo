@@ -11,8 +11,7 @@ module Phase3
       filename = "views/#{controller_name}/#{template_name}.html.erb"
       file = File.read(filename)
       erbed_file = ERB.new(file)
-      type = "text/html"
-
+      type = 'text/html'
 
       render_content(erbed_file.result(binding), type)
     end
