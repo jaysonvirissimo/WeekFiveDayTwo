@@ -11,7 +11,7 @@ module Phase5
     # passed in as a hash to `Params.new` as below:
     def initialize(req, route_params = {})
       @params = Hash.new.merge!(route_params)
-      
+
       unless req.body.nil?
         parsed_body = parse_www_encoded_form(req.body)
         @params.merge!(parsed_body)
@@ -23,6 +23,7 @@ module Phase5
     end
 
     def [](key)
+      @params[key]
     end
 
     def to_s
@@ -38,11 +39,20 @@ module Phase5
     # should return
     # { "user" => { "address" => { "street" => "main", "zip" => "89436" } } }
     def parse_www_encoded_form(www_encoded_form)
+      params = Hash.new
+      pairs = URI.decode_www_form(www_encoded_form)
+
+      pairs.each do |key, value|
+        
+
+      end
     end
 
     # this should return an array
     # user[address][street] should return ['user', 'address', 'street']
     def parse_key(key)
+      magic_regex = /\]\[|\[|\]/ # I got this magic from Ned Ruggeri.
+      key.split(magic_regex)
     end
   end
 end
