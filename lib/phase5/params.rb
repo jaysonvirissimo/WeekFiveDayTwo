@@ -23,7 +23,7 @@ module Phase5
     end
 
     def [](key)
-      @params[key]
+      @params[key.to_s]
     end
 
     def to_s
@@ -43,9 +43,21 @@ module Phase5
       pairs = URI.decode_www_form(www_encoded_form)
 
       pairs.each do |key, value|
-        
+        level = params # I am embarassed by the name of this variable.
+        sequence_of_keys = parse_key(key)
 
+        x = 1
+        sequence_of_keys.each do |inner_key|
+          if x == sequence_of_keys.length
+            level[inner_key] = value
+          else
+            level[inner_key] = Hash.new if level[inner_key].nil?
+            level = level[inner_key]
+          end
+          x += 1
+        end
       end
+      params
     end
 
     # this should return an array
